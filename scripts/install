@@ -11,6 +11,21 @@ source ynh_redis
 source /usr/share/yunohost/helpers
 
 #=================================================
+# Install RUST
+#=================================================
+ynh_script_progression --message="Installing RUST..." --weight=1
+
+# Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
+# Add Rust to PATH and reload PATH
+echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> $HOME/.bashrc
+source $HOME/.bashrc
+
+# Display Rust version
+rustc --version
+
+#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression --message="Setting up source files..." --weight=1
@@ -40,20 +55,14 @@ ynh_script_progression --message="Installing Python dependencies..."
 
 pushd $install_dir
 
-#
-#  REMOVED the env creation
-#
-#	python3 -m venv venv
+	python3 -m venv venv
 
 	chown -R "$app:" "$install_dir"
 (
 	source "$install_dir/venv/bin/activate"
 
-
-#REMOVE the library creation
-
-#	ynh_exec_as $app $install_dir/venv/bin/pip3 install --upgrade pip setuptools wheel
-#	ynh_exec_as $app $install_dir/venv/bin/pip3 install -r "$install_dir/requirements.txt"
+	ynh_exec_as $app $install_dir/venv/bin/pip3 install --upgrade pip setuptools wheel
+	ynh_exec_as $app $install_dir/venv/bin/pip3 install -r "$install_dir/requirements.txt"
 
 	# Installing NLTK data
 	mkdir -p "$install_dir/nltk_data"
