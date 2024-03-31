@@ -15,10 +15,8 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression --message="Installing RUST..." --weight=1
 
-# Set HOME variable if not already set
-if [ -z "$HOME" ]; then
-    HOME=$(getent passwd $(whoami) | cut -d: -f6)
-fi
+# Set HOME variable
+export HOME=/root
 
 # Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
