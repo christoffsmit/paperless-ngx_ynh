@@ -65,7 +65,7 @@ pushd $install_dir
 	source "$install_dir/venv/bin/activate"
 
 	ynh_exec_as $app $install_dir/venv/bin/pip3 install --upgrade pip setuptools wheel
-	ynh_exec_as $app $install_dir/venv/bin/pip3 install cryptography==42.0.4 scikit-learn==1.4.0
+	ynh_exec_as $app $install_dir/venv/bin/pip3 install cryptography==42.0.5 scikit-learn==1.4.0
 	ynh_exec_as $app $install_dir/venv/bin/pip3 install -r "$install_dir/requirements.txt"
 
 	# Installing NLTK data
